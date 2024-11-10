@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1731246853356,
+  "timestamp": 1731248087526,
   "index": "https://srngth.github.io/index.html",
   "assetGroups": [
     {
@@ -14,7 +14,6 @@
         "https://srngth.github.io/favicon.ico",
         "https://srngth.github.io/index.html",
         "https://srngth.github.io/main-CEMWDCKJ.js",
-        "https://srngth.github.io/manifest.webmanifest",
         "https://srngth.github.io/polyfills-FFHMD2TL.js",
         "https://srngth.github.io/styles-5INURTSO.css"
       ],
@@ -53,7 +52,6 @@
     "https://srngth.github.io/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
     "https://srngth.github.io/index.html": "46bae3e6b04026310f8837c34a61e787f4024667",
     "https://srngth.github.io/main-CEMWDCKJ.js": "ad0ea893196ffda4de51fabeea860e48701e80e9",
-    "https://srngth.github.io/manifest.webmanifest": "68ab0206ee1475de7cf4750772b46378550d0bd7",
     "https://srngth.github.io/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
     "https://srngth.github.io/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
   },
