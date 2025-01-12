@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      {{  this.name }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -26,6 +26,5 @@
       <strong>{{ this.qrResultString }}</strong>
     </div>
     <button mat-icon-button (click)="clearResult()">&times;</button>
-    <button mat-icon-button (click)="askApi()">SEND </button>
   </section>
 </ion-content>

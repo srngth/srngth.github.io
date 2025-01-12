@@ -3,8 +3,6 @@ import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/stan
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import {HttpClient} from "@angular/common/http";
-import {map} from "ionicons/icons";
-import {tap} from "rxjs";
 
 @Component({
   selector: 'app-tab1',
@@ -19,28 +17,21 @@ export class Tab1Page {
 
 
   qrResultString: string = "";
+  name: string = "";
 
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
-  }
-
-  clearResult(): void {
-    this.qrResultString = "";
-  }
-  askApi(){
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    console.log("CLICKED")
-    // @ts-ignore
-    // @ts-ignore
     this.http.get("https://world.openfoodfacts.org/api/v2/search?code=" + this.qrResultString)
       .subscribe(
         // @ts-ignore
         it => {
           console.log(it);
           // @ts-ignore
-          console.log(it["products"][0]["product_name"])
+          this.name = it["products"][0]["product_name"]
         })
+  }
+
+  clearResult(): void {
+    this.qrResultString = "";
   }
 }
