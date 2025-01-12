@@ -14,6 +14,18 @@
   </ion-header>
 
   <app-explore-container name="Tab 1 page"></app-explore-container>
-  <zxing-scanner>
+  <zxing-scanner
+    (scanSuccess)="onCodeResult($event)"
+  >
+
   </zxing-scanner>
+
+  <section class="results">
+    <div>
+      <small>Result</small>
+      <strong>{{ this.qrResultString }}</strong>
+    </div>
+    <button mat-icon-button (click)="clearResult()">&times;</button>
+    <button mat-icon-button (click)="askApi()">SEND </button>
+  </section>
 </ion-content>
