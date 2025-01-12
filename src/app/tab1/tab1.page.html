@@ -1,7 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      {{  this.name }}
+      <section class="results">
+        <div>
+          <small>Result</small>
+          <strong>{{ qrResultString }}</strong>
+          <strong>{{  this.name }}</strong>
+        </div>
+      </section>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -28,12 +34,4 @@
     (torchCompatible)="onTorchCompatible($event)">
 
   </zxing-scanner>
-
-  <section class="results" *ngIf="qrResultString">
-    <div>
-      <small>Result</small>
-      <strong>{{ qrResultString }}</strong>
-    </div>
-  </section>
-
 </ion-content>

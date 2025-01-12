@@ -3,7 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/stan
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, take} from "rxjs";
 import { BarcodeFormat } from '@zxing/library';
 
 @Component({
@@ -35,9 +35,7 @@ export class Tab1Page {
   tryHarder = false;
 
   name = ""
-  clearResult(): void {
-    this.qrResultString = "null";
-  }
+
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
@@ -72,6 +70,9 @@ export class Tab1Page {
     console.log("invoked")
     this.qrResultString = resultString;
     this.http.get("https://world.openfoodfacts.org/api/v2/search?code=" + this.qrResultString)
+      .pipe(
+        take(1)
+      )
       .subscribe(
         // @ts-ignore
         it => {
