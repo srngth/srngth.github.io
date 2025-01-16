@@ -1,5 +1,13 @@
 import {Component} from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonItem,
+  IonSelect,
+  IonSelectOption
+} from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import {HttpClient} from "@angular/common/http";
@@ -10,7 +18,7 @@ import { BarcodeFormat } from '@zxing/library';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent, ZXingScannerModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent, ZXingScannerModule, IonItem, IonSelect, IonSelectOption],
 })
 export class Tab1Page {
   constructor(
@@ -32,10 +40,9 @@ export class Tab1Page {
   qrResultString: string = "";
   torchEnabled = false;
   torchAvailable$ = new BehaviorSubject<boolean>(false);
-  tryHarder = false;
-
   name = ""
-
+  kcal = ""
+  protein = ""
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
@@ -57,7 +64,6 @@ export class Tab1Page {
     this.deviceCurrent = device || undefined;
   }
 
-
   onHasPermission(has: boolean) {
     this.hasPermission = has;
   }
@@ -67,19 +73,31 @@ export class Tab1Page {
   }
 
   onCodeResult(resultString: string) {
-    console.log("invoked")
     this.qrResultString = resultString;
-    this.http.get("https://world.openfoodfacts.org/api/v2/search?code=" + this.qrResultString)
+    this.http.get<OpenFoodFactResponse>("https://world.openfoodfacts.net/api/v2/product/" + this.qrResultString + "?product_type=all&fields=product_name&Cnutriments")
       .pipe(
         take(1)
       )
-      .subscribe(
-        // @ts-ignore
-        it => {
-          console.log(it);
-          // @ts-ignore
-          this.name = it["products"][0]["product_name"]
-        })
+      .subscribe(value => {
+        this.name = value.product.product_name;
+        this.kcal = value.product.nutriments.energy_kcal_100g
+        this.protein = value.product.nutriments.proteins_100g
+      })
   }
+}
 
+export interface OpenFoodFactResponse {
+  code: string
+  status_verbose: string
+  product: Product
+}
+
+interface Product {
+  product_name: string
+  nutriments: Nutriments
+}
+
+interface Nutriments {
+  energy_kcal_100g: string
+  proteins_100g: string
 }

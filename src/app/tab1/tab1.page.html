@@ -4,8 +4,9 @@
       <section class="results">
         <div>
           <small>Result</small>
-          <strong>{{ qrResultString }}</strong>
           <strong>{{  this.name }}</strong>
+          <strong>{{  this.kcal }}</strong>
+          <strong>{{  this.protein }}</strong>
         </div>
       </section>
     </ion-title>
@@ -19,8 +20,22 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-item>
+    <ion-select
+      [value]="deviceSelected"
+      (change)="onDeviceSelectChange($event.toString())"
+      label="Select Camera"
+      label-placement="fixed"
+      placeholder="Favorite fruit"
+    >
+      @for (device of availableDevices ; track device) {
+        <ion-select-option [value]="device.deviceId">{{ device.label }}</ion-select-option>
+      }
 
+    </ion-select>
+  </ion-item>
+
+  <app-explore-container name="Tab 1 page"></app-explore-container>
 
   <zxing-scanner
     [torch]="torchEnabled"
