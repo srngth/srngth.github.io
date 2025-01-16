@@ -13,6 +13,7 @@ import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, take} from "rxjs";
 import { BarcodeFormat } from '@zxing/library';
+import {SelectChangeEventDetail} from "@ionic/angular";
 
 @Component({
   selector: 'app-tab1',
@@ -25,8 +26,8 @@ export class Tab1Page {
     private http: HttpClient,
   ) {}
 
-  availableDevices: MediaDeviceInfo[] = [];
-  deviceCurrent: MediaDeviceInfo | undefined;
+  availableDevices: MediaDeviceInfo[] | undefined ;
+  deviceCurrent: MediaDeviceInfo | undefined ;
   deviceSelected: string = "";
 
   formatsEnabled: BarcodeFormat[] = [
@@ -35,17 +36,12 @@ export class Tab1Page {
     BarcodeFormat.EAN_13,
     BarcodeFormat.QR_CODE,
   ];
-  hasDevices: boolean = false;
-  hasPermission: boolean = false;
-  qrResultString: string = "";
+
+  hasDevices: boolean = true;
+  hasPermission: boolean = true;
   torchEnabled = false;
   torchAvailable$ = new BehaviorSubject<boolean>(false);
   tryHarder = false;
-
-  name = ""
-  kcal = ""
-  protein = ""
-
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
@@ -53,10 +49,11 @@ export class Tab1Page {
   }
 
   onDeviceSelectChange(selected: string) {
+    console.log(selected)
     const selectedStr = selected || '';
     if (this.deviceSelected === selectedStr) { return; }
     this.deviceSelected = selectedStr;
-    const device = this.availableDevices.find(x => x.deviceId === selected);
+    const device = this.availableDevices!.find(x => x.deviceId === selected);
     this.deviceCurrent = device || undefined;
   }
 
@@ -67,7 +64,6 @@ export class Tab1Page {
     this.deviceCurrent = device || undefined;
   }
 
-
   onHasPermission(has: boolean) {
     this.hasPermission = has;
   }
@@ -76,9 +72,26 @@ export class Tab1Page {
     this.torchAvailable$.next(isCompatible || false);
   }
 
+  toggleTorch(): void {
+    this.torchEnabled = !this.torchEnabled;
+  }
+
+  toggleTryHarder(): void {
+    this.tryHarder = !this.tryHarder;
+  }
+
+
+
+
+  //
+  name = ""
+  kcal = ""
+  protein = ""
+  qrResultString = ""
+
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
-    this.http.get<OpenFoodFactResponse>("https://world.openfoodfacts.net/api/v2/product/" + this.qrResultString + "?product_type=all&fields=product_name&Cnutriments")
+    this.http.get<OpenFoodFactResponse>("https://world.openfoodfacts.net/api/v2/product/" + this.qrResultString + "?product_type=all&fields=product_name,nutriments")
       .pipe(
         take(1)
       )

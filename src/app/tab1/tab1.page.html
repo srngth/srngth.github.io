@@ -3,7 +3,7 @@
     <ion-title>
       <section class="results">
         <div>
-          <small>Result:</small>
+          <small>Info:</small>
           <strong>{{ qrResultString }}</strong>
           <strong>{{  this.name }}</strong>
           <strong>{{  this.kcal }}</strong>
@@ -14,7 +14,7 @@
     <ion-item>
       <ion-select
         [value]="deviceSelected"
-        (change)="onDeviceSelectChange($event.toString())"
+        (ionChange)="onDeviceSelectChange($event.detail.value)"
         label="Select Camera"
         label-placement="fixed"
         placeholder="Favorite fruit"
