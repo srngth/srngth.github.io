@@ -43,6 +43,8 @@ export class Tab1Page {
   tryHarder = false;
 
   name = ""
+  kcal = ""
+  protein = ""
 
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
@@ -75,19 +77,31 @@ export class Tab1Page {
   }
 
   onCodeResult(resultString: string) {
-    console.log("invoked")
     this.qrResultString = resultString;
-    this.http.get("https://world.openfoodfacts.org/api/v2/search?code=" + this.qrResultString)
+    this.http.get<OpenFoodFactResponse>("https://world.openfoodfacts.net/api/v2/product/" + this.qrResultString + "?product_type=all&fields=product_name&Cnutriments")
       .pipe(
         take(1)
       )
-      .subscribe(
-        // @ts-ignore
-        it => {
-          console.log(it);
-          // @ts-ignore
-          this.name = it["products"][0]["product_name"]
-        })
+      .subscribe(value => {
+        this.name = value.product.product_name;
+        this.kcal = value.product.nutriments.energy_kcal_100g
+        this.protein = value.product.nutriments.proteins_100g
+      })
   }
+}
 
+export interface OpenFoodFactResponse {
+  code: string
+  status_verbose: string
+  product: Product
+}
+
+interface Product {
+  product_name: string
+  nutriments: Nutriments
+}
+
+interface Nutriments {
+  energy_kcal_100g: string
+  proteins_100g: string
 }
