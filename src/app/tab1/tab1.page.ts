@@ -1,5 +1,13 @@
 import {Component} from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonItem,
+  IonSelect,
+  IonSelectOption
+} from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import {HttpClient} from "@angular/common/http";
@@ -10,7 +18,7 @@ import { BarcodeFormat } from '@zxing/library';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent, ZXingScannerModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent, ZXingScannerModule, IonItem, IonSelect, IonSelectOption],
 })
 export class Tab1Page {
   constructor(

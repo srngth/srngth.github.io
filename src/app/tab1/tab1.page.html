@@ -9,6 +9,20 @@
         </div>
       </section>
     </ion-title>
+    <ion-item>
+      <ion-select
+        [value]="deviceSelected"
+        (change)="onDeviceSelectChange($event.toString())"
+        label="Select Camera"
+        label-placement="fixed"
+        placeholder="Favorite fruit"
+      >
+        @for (device of availableDevices ; track device) {
+          <ion-select-option [value]="device.deviceId">{{ device.label }}</ion-select-option>
+        }
+
+      </ion-select>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
@@ -20,8 +34,6 @@
   </ion-header>
 
   <app-explore-container name="Tab 1 page"></app-explore-container>
-
-
   <zxing-scanner
     [torch]="torchEnabled"
     [device]="deviceCurrent"
@@ -32,6 +44,5 @@
     (permissionResponse)="onHasPermission($event)"
     (camerasFound)="onCamerasFound($event)"
     (torchCompatible)="onTorchCompatible($event)">
-
   </zxing-scanner>
 </ion-content>
