@@ -1,4 +1,4 @@
-import {Injectable, Signal, signal, WritableSignal} from '@angular/core';
+import {computed, Injectable, Signal, signal, WritableSignal} from '@angular/core';
 import { Product } from "./models/Product";
 
 @Injectable({
@@ -34,4 +34,16 @@ export class DataService {
   addCurrentScannedProductToDay() {
     this._addedProducts.set([...this._addedProducts(), this.currentScannedProduct()!])
   }
+
+  getTotalProtein = computed(() => {
+    return this.addedItems()
+      .map(product => parseInt(product.proteins_100g))
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  });
+
+  getTotalCalories = computed(() => {
+    return this.addedItems()
+      .map(product => parseInt(product.energy_kcal_100g))
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  });
 }

@@ -13,5 +13,9 @@
         <ion-label>Item {{$index + 1}}: {{JSON.stringify(product)}}</ion-label>
       </ion-item>
     }
+    <ion-item>
+      <ion-label>Total calories: {{this.dataService.getTotalCalories()}} , total protein: {{this.dataService.getTotalProtein()}}</ion-label>
+    </ion-item>
   </ion-list>
+
 </ion-content>

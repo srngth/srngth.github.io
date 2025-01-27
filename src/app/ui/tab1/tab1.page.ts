@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
   IonAlert,
   IonContent,
@@ -21,7 +21,7 @@ import {Product} from "../../models/Product";
   styleUrls: ['tab1.page.scss'],
   imports: [IonHeader, IonToolbar, IonContent, ZXingScannerModule, IonItem, IonSelect, IonSelectOption, IonAlert],
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit{
   constructor() {}
 
   private readonly dataService = (inject(DataService))
@@ -93,6 +93,10 @@ export class Tab1Page {
         } as Product
         this.startScan = false
       })
+  }
+
+  ngOnInit(): void {
+    this.startScan = true
   }
 }
 

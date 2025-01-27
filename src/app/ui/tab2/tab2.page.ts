@@ -1,30 +1,19 @@
-import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
-import {
-  IonAlert,
-  IonContent,
-  IonHeader,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonTitle,
-  IonToolbar
-} from '@ionic/angular/standalone';
-import {take} from "rxjs";
+import {Component, inject, signal, WritableSignal} from '@angular/core';
+import {IonContent, IonHeader, IonItem, IonLabel, IonList, IonTitle, IonToolbar} from '@ionic/angular/standalone';
 import {HttpClient} from "@angular/common/http";
-import {Product} from "../../models/Product";
 import {DataService} from "../../data.service";
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonLabel, IonItem, IonAlert]
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonLabel, IonItem]
 })
 export class Tab2Page {
 
   private barcode: string | undefined
   private http: HttpClient = inject(HttpClient)
-  private dataService = inject(DataService)
+  protected dataService = inject(DataService)
 
   protected availableMediaDevices: WritableSignal<MediaDeviceInfo[]> =  signal([])
   protected scanResult = this.dataService.currentScannedProduct
