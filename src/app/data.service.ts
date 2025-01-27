@@ -30,4 +30,8 @@ export class DataService {
   addItem(product: Product): void {
     this._addedProducts.set([...this._addedProducts(), product])
   }
+
+  addCurrentScannedProductToDay() {
+    this._addedProducts.set([...this._addedProducts(), this.currentScannedProduct()!])
+  }
 }

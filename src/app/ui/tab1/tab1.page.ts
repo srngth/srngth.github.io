@@ -33,7 +33,13 @@ export class Tab1Page {
   protected scanResult = this.dataService.currentScannedProduct
   protected alertButtons = [
     {
-      text: 'Ok',
+      text: 'Add to day',
+      handler: () => {
+        this.dataService.addCurrentScannedProductToDay()
+      },
+    },
+    {
+      text: 'Cancel',
       handler: () => {
         console.log('Alert canceled');
       },

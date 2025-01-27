@@ -8,18 +8,10 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    @for(device of availableMediaDevices(); track device){
+    @for(product of addedItems(); track product){
       <ion-item>
-        <ion-label>Device {{$index + 1}}: {{JSON.stringify(device)}}</ion-label>
+        <ion-label>Item {{$index + 1}}: {{JSON.stringify(product)}}</ion-label>
       </ion-item>
     }
   </ion-list>
-
-  <ion-alert
-    header="Product found"
-    [buttons]="alertButtons"
-    [message]="'Name: ' + (scanResult()?.name) +' Calories/100g: ' + (scanResult()?.energy_kcal_100g) + ' Protein/100g: ' + (scanResult()?.proteins_100g)"
-    [isOpen]="scanResult() !== undefined"
-  >
-  </ion-alert>
 </ion-content>
