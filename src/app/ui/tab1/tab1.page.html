@@ -21,7 +21,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  @if (startScan) {
     <zxing-scanner
       (permissionResponse)="onHasPermission($event)"
       (camerasFound)="onCamerasFound($event)"
@@ -32,7 +31,7 @@
       [tryHarder]="true"
     >
     </zxing-scanner>
-  }
+
 
   <ion-alert
     header="Product found"
