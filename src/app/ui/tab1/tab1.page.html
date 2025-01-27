@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-item>
+      <ion-select
+        [value]="deviceSelected"
+        (ionChange)="onDeviceSelectChange($event.detail.value)"
+        label="Select Camera"
+        label-placement="fixed"
+        placeholder="No camera selected"
+      >
+        @for (device of availableDevices ; track device) {
+          <ion-select-option
+            [value]="device.deviceId"
+          >
+            {{ device.label }}
+          </ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (startScan) {
+    <zxing-scanner
+      (permissionResponse)="onHasPermission($event)"
+      (camerasFound)="onCamerasFound($event)"
+      (deviceChange)="onDeviceChange($event)"
+      [device]="deviceCurrent"
+      (scanSuccess)="onCodeResult($event)"
+      [formats]="formatsEnabled"
+      [tryHarder]="true"
+    >
+    </zxing-scanner>
+  }
+
+  <ion-alert
+    header="Product found"
+    [buttons]="alertButtons"
+    [message]="'Name: ' + (scanResult()?.name) +' Calories/100g: ' + (scanResult()?.energy_kcal_100g) + ' Protein/100g: ' + (scanResult()?.proteins_100g)"
+    [isOpen]="scanResult() !== undefined"
+  >
+  </ion-alert>
+
+</ion-content>

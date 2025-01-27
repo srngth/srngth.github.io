@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 2
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    @for(device of availableMediaDevices(); track device){
+      <ion-item>
+        <ion-label>Device {{$index + 1}}: {{JSON.stringify(device)}}</ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+  <ion-alert
+    header="Product found"
+    [buttons]="alertButtons"
+    [message]="'Name: ' + (scanResult()?.name) +' Calories/100g: ' + (scanResult()?.energy_kcal_100g) + ' Protein/100g: ' + (scanResult()?.proteins_100g)"
+    [isOpen]="scanResult() !== undefined"
+  >
+  </ion-alert>
+</ion-content>
